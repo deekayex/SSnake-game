@@ -1,13 +1,12 @@
 package com.company;
-
 import org.junit.jupiter.api.Test;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import static com.company.GamePanel.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GamePanelTest {
     @org.junit.jupiter.api.Test
-
     void startGame() {
         GamePanel panel = new GamePanel();
         assertTrue(panel.running);
@@ -36,68 +35,16 @@ class GamePanelTest {
         GamePanel gamePanel =new GamePanel();
         int size  =2;
         int y = gamePanel.y[0];
-       assertTrue(y==y-size);
+        int x = gamePanel.x[0];
+
+        assertNotNull(gamePanel.running);
+        assertNotNull(gamePanel.direction);
+       assertEquals(y-size,'U');
+       assertEquals(y+size,'D');
+       assertEquals(x-size,'L');
+       assertEquals(x+size,'R');
         }
 
-    @Test
-    void moveToUp() {
-        GamePanel panel = new GamePanel();
-        int size =3;
-        int y = panel.y[0];
-        char NewDirections = 'R';
-        assertEquals(NewDirections, 'R');
-
-        NewDirections = 'U';
-        assertEquals(NewDirections, 'U');
-        assertTrue(NewDirections != 'D');
-        assertTrue(y==y-size);
-    }
-
-    @Test
-    void moveToDown() {
-        GamePanel gamePanel = new GamePanel();
-        int size =5;
-        int y= gamePanel.y[0];
-        char NewDirections = 'L';
-
-        NewDirections = 'D';
-        assertEquals(NewDirections, 'D');
-        assertTrue(NewDirections != 'U');
-        assertTrue(y==y+size);
-    }
-
-    @Test
-    void moveToRight() {
-        GamePanel panel = new GamePanel();
-        int size=4;
-        int x = panel.x[0];
-        char direction = 'U';
-        direction = 'R';
-        assertEquals(direction, 'R');
-        assertTrue(direction != 'L');
-        assertTrue(x==x+size);
-
-    }
-
-    @Test
-    void moveToLeft() {
-        GamePanel panel = new GamePanel();
-        int size = 6;
-        int x =panel.x[0];
-        char directions = 'D';
-
-        directions = 'L';
-        assertEquals(directions, 'L');
-        assertTrue(directions != 'R');
-    assertTrue(x==x-size);
-    }
-
-    @Test
-    void movement(){
-        char direction = 'L';
-        int[] Xcoordinates = new int[12];
-        int[] Ycoordinates = new int[12];
-        }
 
     @Test
     void snakeMoves() {
@@ -133,7 +80,6 @@ class GamePanelTest {
         if (SnakeCoordinatesY==10 && AppleCoordinatesY ==12){
             assertFalse(SnakeCoordinatesY==AppleCoordinatesX);
         }
-
         if((SnakeCoordinatesX== AppleCoordinatesX)&&(SnakeCoordinatesY==AppleCoordinatesY)){
             assertTrue(NumberApples==3);
             assertTrue(SnakeLength==11);
@@ -170,7 +116,6 @@ class GamePanelTest {
         }
     }
 
-
     @org.junit.jupiter.api.Test
     void doesSnakeGrow(){
         GamePanel panel = new GamePanel();
@@ -181,7 +126,7 @@ int ApplesY = 4;
 int SnakesX = 3;
 int SnakesY = 4;
 if (SnakesX==ApplesX && SnakesY==ApplesY){
-    assertEquals(11,SnakeLength++);
+    assertEquals(11,SnakeLength+1);
     assertTrue(SnakeLength==SnakeLength++);
 }
 
@@ -195,18 +140,31 @@ if (SnakesX!=ApplesX&&SnakesY==ApplesY){
     assertTrue(SnakeLength==SnakeLength);
 }
 else {
-    assertTrue(SnakeLength==10);
     assertEquals(10,SnakeLength);
 }}
-
 
     @org.junit.jupiter.api.Test
     void gameOver() {
         GamePanel Panel = new GamePanel();
-       assertTrue(!Panel.running);
+       assertTrue(Panel.running);
        assertSame("GAME OVER","GAME OVER");
     }
 
+    @Test
+    void keyPressedCheck() {
+        KeyAdapter keyAdapter = new KeyAdapter() {
+               public void keyPressed(KeyEvent e) {
+                   assertNotNull(e.getKeyCode());
+                assertEquals('L',KeyEvent.VK_LEFT);
+                   assertFalse('R' == KeyEvent.VK_LEFT);
+                assertEquals('R',KeyEvent.VK_RIGHT);
+                   assertFalse('L' == KeyEvent.VK_RIGHT);
+                assertEquals('D',KeyEvent.VK_DOWN);
+                   assertFalse('U' == KeyEvent.VK_DOWN);
+                assertEquals('U',KeyEvent.VK_UP);
+                   assertFalse('D' == KeyEvent.VK_UP);
+            }
+              };}
 
     @org.junit.jupiter.api.Test
     void actionPerformed() {
