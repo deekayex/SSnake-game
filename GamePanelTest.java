@@ -231,12 +231,14 @@ else {
         assertNotNull(gameframe);
     }
     @Test
-    void mainTest(){
+     void mainTest() {
         Main main = new Main();
         assertNotNull(main);
+    }
+        @Test
+        void mainGameframe(){
         Gameframe gameframe = new Gameframe();
         this.gameframe();
         assertNotNull(gameframe);
-    }
-       }
+    }}
 
