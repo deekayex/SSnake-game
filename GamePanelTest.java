@@ -1,7 +1,8 @@
 package com.company;
 
 import org.junit.jupiter.api.Test;
-import java.awt.*;
+import java.awt.event.KeyEvent;
+
 import static com.company.GamePanel.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,7 @@ class GamePanelTest {
         this.startGame();
         assertTrue(Panel.running);
     }
-    
+
 
     @org.junit.jupiter.api.Test
     boolean draw() {
@@ -37,44 +38,66 @@ class GamePanelTest {
     @Test
     void move(){
         GamePanel gamePanel =new GamePanel();
-    }
+        int size  =2;
+        int y = gamePanel.y[0];
+       assertTrue(y==y-size);
+
+        }
+
 
     @Test
 
     void moveToUp() {
+        GamePanel panel = new GamePanel();
+        int size =3;
+        int y = panel.y[0];
         char NewDirections = 'R';
         assertEquals(NewDirections, 'R');
 
         NewDirections = 'U';
         assertEquals(NewDirections, 'U');
         assertTrue(NewDirections != 'D');
+        assertTrue(y==y-size);
     }
 
     @Test
 
     void moveToDown() {
+        GamePanel gamePanel = new GamePanel();
+        int size =5;
+        int y= gamePanel.y[0];
         char NewDirections = 'L';
 
         NewDirections = 'D';
         assertEquals(NewDirections, 'D');
         assertTrue(NewDirections != 'U');
+        assertTrue(y==y+size);
     }
     @Test
 
     void moveToRight() {
+        GamePanel panel = new GamePanel();
+        int size=4;
+        int x = panel.x[0];
         char direction = 'U';
         direction = 'R';
         assertEquals(direction, 'R');
         assertTrue(direction != 'L');
+        assertTrue(x==x+size);
+
     }
 
     @Test
     void moveToLeft() {
+        GamePanel panel = new GamePanel();
+        int size = 6;
+        int x =panel.x[0];
         char directions = 'D';
 
         directions = 'L';
         assertEquals(directions, 'L');
         assertTrue(directions != 'R');
+    assertTrue(x==x-size);
     }
     @Test
     void movement(){
@@ -127,7 +150,6 @@ class GamePanelTest {
     @Test
     void checkCollisions() {
         GamePanel Panel = new GamePanel();
-//        boolean run = false;
         int SnakesX=2;
         int SnakesY= 5;
         int SnakeLength =20;
@@ -158,6 +180,8 @@ class GamePanelTest {
 
     @org.junit.jupiter.api.Test
     void doesSnakeGrow(){
+        GamePanel panel = new GamePanel();
+        assertNotNull(panel);
 int SnakeLength =10;
 int ApplesX = 3;
 int ApplesY = 4;
@@ -175,8 +199,10 @@ if (SnakesX==ApplesX&& SnakesY!=ApplesY){
 
 if (SnakesX!=ApplesX&&SnakesY==ApplesY){
     assertFalse(SnakeLength!=SnakeLength++);
+    assertTrue(SnakeLength==SnakeLength);
 }
 else {
+    assertTrue(SnakeLength==10);
     assertEquals(10,SnakeLength);
 }}
 
@@ -184,6 +210,7 @@ else {
     void gameOver() {
         GamePanel Panel = new GamePanel();
        assertTrue(!Panel.running);
+       assertSame("GAME OVER","GAME OVER");
     }
 
 
@@ -207,7 +234,9 @@ else {
     void mainTest(){
         Main main = new Main();
         assertNotNull(main);
+        Gameframe gameframe = new Gameframe();
         this.gameframe();
+        assertNotNull(gameframe);
     }
        }
 
