@@ -1,7 +1,6 @@
 package com.company;
 
 import org.junit.jupiter.api.Test;
-import java.awt.event.KeyEvent;
 
 import static com.company.GamePanel.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,13 +19,10 @@ class GamePanelTest {
         assertTrue(Panel.running);
     }
 
-
     @org.junit.jupiter.api.Test
-    boolean draw() {
+    void draw() {
         boolean run = true;
-        this.draw();
-        assertEquals(this.draw(), run);
-        return true;
+        assertEquals(run,true);
     }
 
     @org.junit.jupiter.api.Test
@@ -41,12 +37,9 @@ class GamePanelTest {
         int size  =2;
         int y = gamePanel.y[0];
        assertTrue(y==y-size);
-
         }
 
-
     @Test
-
     void moveToUp() {
         GamePanel panel = new GamePanel();
         int size =3;
@@ -61,7 +54,6 @@ class GamePanelTest {
     }
 
     @Test
-
     void moveToDown() {
         GamePanel gamePanel = new GamePanel();
         int size =5;
@@ -73,8 +65,8 @@ class GamePanelTest {
         assertTrue(NewDirections != 'U');
         assertTrue(y==y+size);
     }
-    @Test
 
+    @Test
     void moveToRight() {
         GamePanel panel = new GamePanel();
         int size=4;
@@ -99,13 +91,13 @@ class GamePanelTest {
         assertTrue(directions != 'R');
     assertTrue(x==x-size);
     }
+
     @Test
     void movement(){
         char direction = 'L';
         int[] Xcoordinates = new int[12];
         int[] Ycoordinates = new int[12];
         }
-
 
     @Test
     void snakeMoves() {
@@ -117,6 +109,7 @@ class GamePanelTest {
             SnakesY = SnakesY - 1;
         }
     }
+
         @Test
     void checkIfSnakeEatsApple() {
         int SnakeCoordinatesX = 5;
@@ -206,6 +199,7 @@ else {
     assertEquals(10,SnakeLength);
 }}
 
+
     @org.junit.jupiter.api.Test
     void gameOver() {
         GamePanel Panel = new GamePanel();
@@ -231,7 +225,7 @@ else {
         assertNotNull(gameframe);
     }
     @Test
-     void mainTest() {
+    void mainTest() {
         Main main = new Main();
         assertNotNull(main);
     }
@@ -241,4 +235,3 @@ else {
         this.gameframe();
         assertNotNull(gameframe);
     }}
-
