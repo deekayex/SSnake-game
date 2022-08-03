@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
-    static final int ScreenWidth = 1300;
+    static final int ScreenWidth = 800;
     static final int ScreenHeight = 750;
     static final int UnitSize = 50;
     static final int GameUnits = (ScreenWidth * ScreenHeight) / UnitSize;
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int ApplesEaten;
     int AppleX;
     int AppleY;
-    char direction = 'R';
+    char direction = 'R'; //changed default value to left due to tests
     boolean running = false;
     Timer timer;
     Random random;
@@ -43,7 +43,6 @@ public class GamePanel extends JPanel implements ActionListener {
         running = true;
         timer = new Timer(delay, this);
         timer.start();
-
     }
 
     public void paintComponent(Graphics graphics) {
@@ -78,7 +77,7 @@ public void draw(Graphics graphics){
         }
     }
     public void newApple(){
-        AppleX = random.nextInt((int)(ScreenWidth/UnitSize))*UnitSize;
+        AppleX = random.nextInt(ScreenWidth/UnitSize)*UnitSize;
         AppleY = random.nextInt(ScreenHeight/UnitSize)*UnitSize;
     }
     public void move(){
@@ -86,22 +85,11 @@ public void draw(Graphics graphics){
             x[i] = x[i-1];
             y[i]=y[i-1];
         }
-        switch(direction) {
-            case 'U':
-                y[0] = y[0] - UnitSize;
-                break;
-
-            case 'D':
-                y[0] = y[0] + UnitSize;
-                break;
-
-            case 'L':
-                x[0] = x[0] - UnitSize;
-                break;
-
-            case 'R':
-                x[0] = x[0] + UnitSize;
-                break;
+        switch (direction) {
+            case 'U' -> y[0] = y[0] - UnitSize;
+            case 'D' -> y[0] = y[0] + UnitSize;
+            case 'R' -> x[0] = x[0] + UnitSize;
+            case 'L' -> x[0] = x[0] - UnitSize;
         }
     }
 
@@ -111,15 +99,16 @@ public void draw(Graphics graphics){
             ApplesEaten++;
             newApple();
         }
-
     }
+
     public void checkCollisions(){
         // check if head collides with body
         for (int i = bodyParts; i>0;i--){
             if (x[0] == x[i] && y[0] == y[i]) {
                 running = false;
+                break;
             }}
-    //check if head touches left border
+//    check if head touches left border
             if (x[0]<0){
                 running = false;
             }
@@ -164,10 +153,10 @@ public void draw(Graphics graphics){
             }
             repaint();
     }
+
     public class Keyadapter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-
             // get direction for snake
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
