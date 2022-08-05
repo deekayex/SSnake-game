@@ -111,10 +111,11 @@ void snakesDirectionUp(){
         GamePanel gm = new GamePanel();
         gm.bodyParts =4;
         gm.checkCollisions();
-        gm.x[0] = -12;
         assertFalse(gm.running);
-        assertEquals(!gm.running,gm.x[0]<0);
-        assertNotEquals(gm.running,gm.x[0]=-1);
+        gm.x[0] =-2;
+        assertFalse(gm.running);
+        gm.x[0]=-3333;
+        assertFalse(gm.running);
     }
 
     @Test
@@ -179,6 +180,7 @@ void doesApplesEatenTallyIncrease(){
         game.checkApple();
         assertEquals(6,game.ApplesEaten);
 }
+
 
 @Test
 void FailTest(){
