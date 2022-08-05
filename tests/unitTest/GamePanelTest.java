@@ -1,7 +1,9 @@
 package com.company;
 import org.junit.jupiter.api.Test;
+import java.util.Random;
 import static com.company.GamePanel.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class GamePanelTest {
     @org.junit.jupiter.api.Test
@@ -9,6 +11,7 @@ class GamePanelTest {
         GamePanel panel = new GamePanel();
         assertTrue(panel.running);
     }
+
     @org.junit.jupiter.api.Test
     void startNewGame() {
         GamePanel Panel = new GamePanel();
@@ -25,6 +28,10 @@ class GamePanelTest {
     @org.junit.jupiter.api.Test
     void newApple() {
         GamePanel gamePanel =new GamePanel();
+        new Random();
+        gamePanel.AppleX =22;
+        gamePanel.AppleY= 33;
+        gamePanel.newApple();
         assertEquals(gamePanel.ApplesEaten, gamePanel.ApplesEaten++);
     }
 
@@ -59,6 +66,7 @@ void snakesDirectionUp(){
         panel.x[0] =100;
         assertEquals(50, panel.x[0] - UnitSize);
     }
+
     @Test
     void snakesDirectionRight(){
         GamePanel panel = new GamePanel();
@@ -76,27 +84,6 @@ void snakesDirectionUp(){
 
             assertNotEquals(6,gamePanel.bodyParts);
             assertNotEquals(4,gamePanel.ApplesEaten);
-        }
-        @Test
-        void checkIfSnakeEatsApple(){
-        GamePanel pp =new GamePanel();
-        pp.AppleY = 4;
-        pp.AppleX = 2;
-        pp.x[0]=2;
-        pp.y[0]=4;
-        int snakeX = pp.x[0];
-        int snakeY = pp.y[0];
-        int bodyParts =5;
-        int ApplesEaten =3;
-        pp.bodyParts = bodyParts;
-        pp.ApplesEaten = ApplesEaten;
-            bodyParts++;
-            ApplesEaten++;
-        assertEquals(6,bodyParts++);
-        assertEquals(4,ApplesEaten++);
-        assertEquals(snakeX,pp.AppleX);
-        assertEquals(snakeY,pp.AppleY);
-
         }
 
     @Test
@@ -127,6 +114,7 @@ void snakesDirectionUp(){
         gm.x[0] = -12;
         assertFalse(gm.running);
         assertEquals(!gm.running,gm.x[0]<0);
+        assertNotEquals(gm.running,gm.x[0]=-1);
     }
 
     @Test
@@ -166,7 +154,18 @@ void checkHeadAgainstBottomBorder(){
 }
 @Test
 void checkSnakeDoesntGrow(){
+GamePanel game = new GamePanel();
+game.AppleX = 33;
+game.AppleY = 55;
+game.bodyParts = 5;
+game.x[0]=34;
+game.y[0]=55;
+game.checkApple();
 
+assertEquals(5,game.bodyParts );
+game.y[0]=54;
+game.x[0]=33;
+assertEquals(5,game.bodyParts );
 }
 
 @Test
@@ -177,36 +176,46 @@ void doesApplesEatenTallyIncrease(){
         game.AppleX = 22;
         game.x[0]= 22;
         game.y[0]= 44;
-
         game.checkApple();
         assertEquals(6,game.ApplesEaten);
 }
 
-    @Test
-    void keyPressed(){
-        GamePanel game =new GamePanel();
-    }
-    @org.junit.jupiter.api.Test
-    void actionPerformed() {
-        boolean run = false;
-        assertFalse(run);
-    }
+@Test
+void FailTest(){
+        GamePanel gamePanel = new GamePanel();
+        gamePanel.newApple();
+        assertTrue(!gamePanel.running);
+}
+
+@Test
+void FailTest2(){
+        GamePanel gamePanel = new GamePanel();
+        gamePanel.x[0]= 3;
+        gamePanel.y[0] = 5;
+        gamePanel.x[gamePanel.bodyParts] =3;
+        gamePanel.y[gamePanel.bodyParts] =5;
+        gamePanel.checkCollisions();
+        assertTrue(gamePanel.running);
+}
 
     @Test
     void gamePanel(){
         GamePanel gamePanel =new GamePanel();
         assertNotNull(gamePanel);
     }
+
     @Test
     void gameframe(){
         Gameframe gameframe = new Gameframe();
         assertNotNull(gameframe);
     }
+
     @Test
     void mainTest() {
         Main main = new Main();
         assertNotNull(main);
     }
+
         @Test
         void mainGameframe(){
         Gameframe gameframe = new Gameframe();
