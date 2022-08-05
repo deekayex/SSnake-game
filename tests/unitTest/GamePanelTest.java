@@ -1,7 +1,5 @@
 package com.company;
 import org.junit.jupiter.api.Test;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import static com.company.GamePanel.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,77 +29,75 @@ class GamePanelTest {
     }
 
     @Test
-    void move(){
+    void snakeMoves(){
         GamePanel gamePanel =new GamePanel();
-        int size  =UnitSize;
-        int y = gamePanel.y[0];
-        int x = gamePanel.x[0];
-
-        assertNotNull(gamePanel.direction);
-        assertTrue(gamePanel.running);
-       assertEquals('U',y-size);
-       assertEquals('D',y+size);
-       assertEquals('L',x-size);
-       assertEquals('R',x+size);
+        gamePanel.move();
+        assertEquals(gamePanel.x[4],gamePanel.x[5]);
+        assertEquals(gamePanel.y[3],gamePanel.x[4]);
         }
 
 @Test
-void snakesDirection(){
+void snakesDirectionUp(){
         GamePanel panel = new GamePanel();
-        if (panel.direction=='U'){
-    assertEquals(panel.y[0], panel.y[0] - UnitSize);
-}
-    if (panel.direction=='D'){
-        assertEquals(panel.y[0], panel.y[0] + UnitSize);
+        panel.direction='U';
+        panel.y[0] =100;
+        assertEquals(50, panel.y[0] - UnitSize);
     }
-    if (panel.direction=='L'){
-        assertEquals(panel.x[0], panel.x[0] - UnitSize);
-    }
-    if (panel.direction=='R'){
-        assertEquals(panel.x[0], panel.x[0] + UnitSize);
-    }
-    }
-
 
     @Test
-    void snakeMoves() {
-        int SnakeParts = 16;
-        int SnakesX = 11;
-        int SnakesY = 11;
-        for (int i = SnakeParts; i > 0; i--) {
-            SnakesX = SnakesX - 1;
-            SnakesY = SnakesY - 1;
+    void snakesDirectionDown(){
+        GamePanel panel = new GamePanel();
+        panel.direction='D';
+        panel.y[0] =100;
+        assertEquals(150, panel.y[0] + UnitSize);
         }
+
+    @Test
+    void snakesDirectionLeft(){
+        GamePanel panel = new GamePanel();
+        panel.direction='L';
+        panel.x[0] =100;
+        assertEquals(50, panel.x[0] - UnitSize);
+    }
+    @Test
+    void snakesDirectionRight(){
+        GamePanel panel = new GamePanel();
+        panel.direction='R';
+        panel.x[0] =3;
+        assertEquals(53, panel.x[0] + UnitSize);
     }
 
         @Test
-    void checkIfSnakeEatsApple() {
-        int SnakeCoordinatesX = 5;
-        int SnakeCoordinatesY = 10;
-        int AppleCoordinatesX=2;
-        int AppleCoordinatesY=5;
+    void checkSnakeDoesntEatApple() {
+        GamePanel gamePanel =new GamePanel();
+            gamePanel.bodyParts = 5;
+            gamePanel.ApplesEaten =3;
+            gamePanel.checkApple();
 
-        int SnakeLength =10;
-        int NumberApples = 2;
+            assertNotEquals(6,gamePanel.bodyParts);
+            assertNotEquals(4,gamePanel.ApplesEaten);
+        }
+        @Test
+        void checkIfSnakeEatsApple(){
+        GamePanel pp =new GamePanel();
+        pp.AppleY = 4;
+        pp.AppleX = 2;
+        pp.x[0]=2;
+        pp.y[0]=4;
+        int snakeX = pp.x[0];
+        int snakeY = pp.y[0];
+        int bodyParts =5;
+        int ApplesEaten =3;
+        pp.bodyParts = bodyParts;
+        pp.ApplesEaten = ApplesEaten;
+            bodyParts++;
+            ApplesEaten++;
+        assertEquals(6,bodyParts++);
+        assertEquals(4,ApplesEaten++);
+        assertEquals(snakeX,pp.AppleX);
+        assertEquals(snakeY,pp.AppleY);
 
-        if (SnakeCoordinatesX==5 && AppleCoordinatesX ==5){
-            assertEquals(SnakeLength,SnakeLength++);
         }
-
-        if (SnakeCoordinatesX==5 && AppleCoordinatesX ==7){
-            assertTrue(SnakeCoordinatesX!=AppleCoordinatesX);
-        }
-        if (SnakeCoordinatesY==10 && AppleCoordinatesY ==10){
-            assertEquals(SnakeCoordinatesY, AppleCoordinatesY);
-        }
-        if (SnakeCoordinatesY==10 && AppleCoordinatesY ==12){
-            assertNotEquals(SnakeCoordinatesY, AppleCoordinatesX);
-        }
-        if((SnakeCoordinatesX== AppleCoordinatesX)&&(SnakeCoordinatesY==AppleCoordinatesY)){
-            assertEquals(3, NumberApples);
-            assertEquals(11, SnakeLength);
-        }
-    }
 
     @Test
     void collisionsLoopTest(){
@@ -115,59 +111,81 @@ void snakesDirection(){
     }
     @Test
     void collisionsTest(){
-        GamePanel g = new GamePanel();
-        int a=g.x[0]=2;
-        int b=g.x[g.bodyParts]=2;
+      int SnakesX =2;
+       int SnakesY = 3;
+       int ApplesX =2;
+       int ApplesY = 3;
+       assertEquals(SnakesX,ApplesX);
+       assertEquals(SnakesY,ApplesY);
     }
+
+    @Test
+    void checkHeadAgainstLeftBorder(){
+        GamePanel gm = new GamePanel();
+        gm.bodyParts =4;
+        gm.checkCollisions();
+        gm.x[0] = -12;
+        assertFalse(gm.running);
+        assertEquals(!gm.running,gm.x[0]<0);
+    }
+
+    @Test
+    void checkHeadAgainstRightBorder(){
+        GamePanel gm = new GamePanel();
+        gm.checkCollisions();
+        assertEquals(!gm.running,gm.x[0]<ScreenWidth);
+    }
+
+    @Test
+    void checkHeadAgainstTopBorder(){
+        GamePanel gamepanel = new GamePanel();
+        gamepanel.y[0] = -2;
+        gamepanel.checkCollisions();
+        assertTrue(!gamepanel.running);
+    }
+
+    @Test
+void checkHeadAgainstBottomBorder(){
+    GamePanel snakesPosition = new GamePanel();
+    snakesPosition.checkCollisions();
+    assertEquals(!snakesPosition.running,snakesPosition.y[0]<ScreenHeight);
+    }
+
 
     @org.junit.jupiter.api.Test
     void doesSnakeGrow(){
         GamePanel panel = new GamePanel();
         assertNotNull(panel);
-int SnakeLength =10;
-int ApplesX = 3;
-int ApplesY = 4;
-int SnakesX = 3;
-int SnakesY = 4;
-if (SnakesX==ApplesX && SnakesY==ApplesY){
-    assertEquals(11,SnakeLength+1);
-    assertEquals(SnakeLength, SnakeLength++);
+        panel.bodyParts = 10;
+        panel.AppleX =3;
+        panel.AppleY =4;
+        panel.x[0]= 3;
+        panel.y[0]=4;
+        panel.checkApple();
+        assertEquals(11,panel.bodyParts);
+}
+@Test
+void checkSnakeDoesntGrow(){
+
 }
 
-if (SnakesX==ApplesX&& SnakesY!=ApplesY){
-    assertEquals(10,SnakeLength);
-    assertFalse(SnakeLength!=SnakeLength++);
-}
+@Test
+void doesApplesEatenTallyIncrease(){
+        GamePanel game = new GamePanel();
+        game.ApplesEaten = 5;
+        game.AppleY = 44;
+        game.AppleX = 22;
+        game.x[0]= 22;
+        game.y[0]= 44;
 
-if (SnakesX!=ApplesX&&SnakesY==ApplesY){
-    assertFalse(SnakeLength!=SnakeLength++);
-    assertEquals(SnakeLength, SnakeLength);
+        game.checkApple();
+        assertEquals(6,game.ApplesEaten);
 }
-}
-
-    @org.junit.jupiter.api.Test
-    void gameOver() {
-        GamePanel Panel = new GamePanel();
-       assertTrue(Panel.running);
-       assertSame("GAME OVER","GAME OVER");
-    }
 
     @Test
-    void keyPressedCheck() {
-        KeyAdapter keyAdapter = new KeyAdapter() {
-               public void keyPressed(KeyEvent e) {
-                   assertNotNull(e.getKeyCode());
-                assertEquals('L',KeyEvent.VK_LEFT);
-                   assertNotEquals(KeyEvent.VK_LEFT, 'R');
-                assertEquals('R',KeyEvent.VK_RIGHT);
-                   assertNotEquals(KeyEvent.VK_RIGHT, 'L');
-                assertEquals('D',KeyEvent.VK_DOWN);
-                   assertNotEquals(KeyEvent.VK_DOWN, 'U');
-                assertEquals('U',KeyEvent.VK_UP);
-                   assertNotEquals(KeyEvent.VK_UP, 'D');
-               }
-        };}
-
+    void keyPressed(){
+        GamePanel game =new GamePanel();
+    }
     @org.junit.jupiter.api.Test
     void actionPerformed() {
         boolean run = false;
@@ -194,6 +212,7 @@ if (SnakesX!=ApplesX&&SnakesY==ApplesY){
         Gameframe gameframe = new Gameframe();
         this.gameframe();
         assertNotNull(gameframe);
+        assertTrue(gameframe.isActive());
     }}
 
 
