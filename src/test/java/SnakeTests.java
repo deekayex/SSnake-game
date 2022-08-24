@@ -1,9 +1,11 @@
+package test.java;
 
 import org.junit.jupiter.api.Test;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SnakeTests {
+
     @org.junit.jupiter.api.Test
     void startGame() {
         GamePanel panel = new GamePanel();
@@ -33,7 +35,7 @@ public class SnakeTests {
         assertEquals(gamePanel.applesEaten, gamePanel.applesEaten++);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void snakeMoves(){
         GamePanel gamePanel =new GamePanel();
         gamePanel.move();
@@ -41,7 +43,7 @@ public class SnakeTests {
         assertEquals(gamePanel.y[3],gamePanel.x[4]);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void snakesDirectionUp(){
         GamePanel panel = new GamePanel();
         panel.direction='U';
@@ -49,7 +51,7 @@ public class SnakeTests {
         assertEquals(50, panel.y[0] - GamePanel.UNIT_SIZE);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void snakesDirectionDown(){
         GamePanel panel = new GamePanel();
         panel.direction='D';
@@ -57,7 +59,7 @@ public class SnakeTests {
         assertEquals(150, panel.y[0] +GamePanel.UNIT_SIZE );
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void snakesDirectionLeft(){
         GamePanel panel = new GamePanel();
         panel.direction='L';
@@ -65,7 +67,7 @@ public class SnakeTests {
         assertEquals(50, panel.x[0] - GamePanel.UNIT_SIZE);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void snakesDirectionRight(){
         GamePanel panel = new GamePanel();
         panel.direction='R';
@@ -73,7 +75,7 @@ public class SnakeTests {
         assertEquals(53, panel.x[0] + GamePanel.UNIT_SIZE);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void checkSnakeDoesNotEatApple() {
         GamePanel gamePanel =new GamePanel();
         gamePanel.bodyParts = 5;
@@ -84,7 +86,7 @@ public class SnakeTests {
         assertNotEquals(4,gamePanel.applesEaten);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void collisionsLoopTest(){
         GamePanel p= new GamePanel();
         assertEquals(0,p.bodyParts=0);
@@ -113,7 +115,7 @@ public class SnakeTests {
         gm.x[0] =-2;
         assertFalse(gm.running);
         gm.x[0]=-3333;
-        assertFalse(!gm.running);//change to true
+        assertFalse(gm.running);
     }
 
     @Test

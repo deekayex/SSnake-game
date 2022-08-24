@@ -13,3 +13,7 @@ jobs:
 
       - name: Run Super Linter
         uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: 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
