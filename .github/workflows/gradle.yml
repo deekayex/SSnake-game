@@ -32,6 +32,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Run JUnitTests
-      run: javac SnakeTests.java
+    - name: Test wwith Gradle
+      run: ./gradlew test
 
