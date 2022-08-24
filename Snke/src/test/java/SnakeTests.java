@@ -181,24 +181,6 @@ public class SnakeTests {
 
 
     @Test
-    void FailTest(){
-        GamePanel gamePanel = new GamePanel();
-        gamePanel.newApple();
-        assertTrue(!gamePanel.running);
-    }
-
-    @Test
-    void FailTest2(){
-        GamePanel gamePanel = new GamePanel();
-        gamePanel.x[0]= 3;
-        gamePanel.y[0] = 5;
-        gamePanel.x[gamePanel.bodyParts] =3;
-        gamePanel.y[gamePanel.bodyParts] =5;
-        gamePanel.checkCollisions();
-        assertTrue(gamePanel.running);
-    }
-
-    @Test
     void gamePanel(){
         GamePanel gamePanel =new GamePanel();
         assertNotNull(gamePanel);
@@ -216,12 +198,6 @@ public class SnakeTests {
         assertNotNull(main);
     }
 
-    @Test
-    void mainGameframe(){
-        GameFrame gameframe = new GameFrame();
-        this.gameframe();
-        assertNotNull(gameframe);
-        assertTrue(gameframe.isActive());
-    }}
+  }
 
 
