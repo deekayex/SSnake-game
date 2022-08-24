@@ -113,7 +113,7 @@ public class SnakeTests {
         gm.x[0] =-2;
         assertFalse(gm.running);
         gm.x[0]=-3333;
-        assertFalse(gm.running);
+        assertFalse(!gm.running);//change to true
     }
 
     @Test
